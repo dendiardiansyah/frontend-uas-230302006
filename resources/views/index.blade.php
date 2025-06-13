@@ -35,8 +35,8 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <i class="fas fa-chalkboard-teacher fa-2x mr-3"></i> <!-- Ikon -->
                                 <div>
-                                    <h5>Jumlah Dosen</h5>
-                                    <p class="display-4 count" data-target="{{ $dosen }}">0</p>
+                                    <h5>Jumlah Matkul</h5>
+                                    <p class="display-4 count" data-target="{{ $matkul }}">0</p>
                                 </div>
                             </div>
                         </div>

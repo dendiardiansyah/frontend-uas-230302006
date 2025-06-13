@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class DosenController extends Controller
+class MatkulController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $response = Http::get(config('services.api.base_url') . '/dosen', [
+        $response = Http::get(config('services.api.base_url') . '/matkul', [
             'sort_by' => 'id',
             'order' => 'asc'
         ]);
         if ($response->successful()) {
             $datas = collect($response->json())->sortByDesc('id');
-            return view('dosen.index', compact('datas'));
+            return view('matkul.index', compact('datas'));
         }
         return response()->json(['error' => 'Gagal Mengambil Data dari API'], 500);
     }
@@ -37,19 +37,17 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nidn' => 'required',
-            'email' => 'required',
-            'prodi' => 'required',
+            'kode_matkul' => 'required',
+            'nama_matkul' => 'required',
+	        'sks' => 'required',
         ]);
-        $response = Http::post(config('services.api.base_url') . '/dosen', [
-            'nama' => $request->nama,
-            'nidn' => $request->nidn,
-            'email' => $request->email,
-            'prodi' => $request->prodi,
+        $response = Http::post(config('services.api.base_url') . '/matkul', [
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'sks' => $request->sks,
         ]);
         if ($response->successful()) {
-            return redirect()->route('dosen.index')->with('success', 'Data berhasil DItambahkan!');
+            return redirect()->route('matkul.index')->with('success', 'Data berhasil Ditambahkan!');
         }
         return back()->with('error', 'Gagal Menambahkan Data');
     }
@@ -68,12 +66,12 @@ class DosenController extends Controller
     public function edit(string $id)
     {
         $response = Http::get(
-            config('services.api.base_url') . '/dosen/' . $id
+            config('services.api.base_url') . '/matkul/' . $id
         );
 
         if ($response->successful()) {
             $data = $response->json();
-            return view('dosen.edit', ['dosen' => $data['dosen_byid']]);
+            return view('matkul.edit', ['matkul' => $data['matkul_byid']]);
         }
         return response()->json(['error' => 'Gagal Fetch Data'], 500);
     }
@@ -84,19 +82,17 @@ class DosenController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nidn' => 'required',
-            'email' => 'required',
-            'prodi' => 'required',
+            'kode_matkul' => 'required',
+            'nama_matkul' => 'required',
+	        'sks' => 'required',
         ]);
-        $response = Http::put(config('services.api.base_url') . '/dosen/' . $id, [
-            'nama' => $request->nama,
-            'nidn' => $request->nidn,
-            'email' => $request->email,
-            'prodi' => $request->prodi,
+        $response = Http::post(config('services.api.base_url') . '/matkul', [
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'sks' => $request->sks,
         ]);
         if ($response->successful()) {
-            return redirect()->route('dosen.index')->with('success', 'Data berhasil DI update!');
+            return redirect()->route('matkul.index')->with('success', 'Data berhasil DI update!');
         }
         return back()->with('error', 'Gagal Mengupdate Data');
     }
@@ -107,11 +103,11 @@ class DosenController extends Controller
     public function destroy(string $id)
     {
         $response = Http::delete(
-            config('services.api.base_url') . '/dosen/' . $id
+            config('services.api.base_url') . '/matkul/' . $id
         );
 
         if ($response->successful()) {
-            return redirect()->route('dosen.index')->with('success', 'Data berhasil Dihapus!');
+            return redirect()->route('matkul.index')->with('success', 'Data berhasil Dihapus!');
         }
         return back()->with('error', 'gagal menghapus data');
     }

@@ -23,9 +23,9 @@ composer create-project laravel/laravel Eval-Laravel10 "10.*"
 ```
 php artisan make:controller MahasiswaController --resource
 ```
-* buat controller Dosen melalui Terminal dengan prompt :
+* buat controller matkul melalui Terminal dengan prompt :
 ```
-php artisan make:controller DosenController --resource
+php artisan make:controller MatkulController --resource
 ```
 
 ### 3. Konfigurasi Environment

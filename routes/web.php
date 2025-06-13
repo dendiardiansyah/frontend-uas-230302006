@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\MahasiswaController;
 
 /*
@@ -18,11 +18,11 @@ use App\Http\Controllers\MahasiswaController;
 
 Route::get('/', [DashboardController::class, 'index']);
 
-Route::get('dosen', [DosenController::class, 'index'])->name('dosen.index');
-Route::post('dosen', [DosenController::class, 'store']);
-Route::get('dosen/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
-Route::put('dosen/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
-Route::delete('dosen/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
+Route::get('matkul', [matkulController::class, 'index'])->name('matkul.index');
+Route::post('matkul', [matkulController::class, 'store']);
+Route::get('matkul/edit/{id}', [matkulController::class, 'edit'])->name('matkul.edit');
+Route::put('matkul/update/{id}', [matkulController::class, 'update'])->name('matkul.update');
+Route::delete('matkul/delete/{id}', [matkulController::class, 'destroy'])->name('matkul.destroy');
 
 Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 Route::post('mahasiswa', [MahasiswaController::class, 'store']);

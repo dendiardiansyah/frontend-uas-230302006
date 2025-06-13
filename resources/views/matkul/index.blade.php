@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', 'Data Dosen')
+@section('title', 'Data Matkul')
 
 @section('content')
 <!-- Content Header (Page header) -->
@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Data Dosen</h1>
+                <h1>Data Matkul</h1>
             </div>
         </div>
     </div>
@@ -21,10 +21,10 @@
                 <!-- DataTable Card -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title mr-5">Data Dosen</h3>
+                        <h3 class="card-title mr-5">Data Matkul</h3>
                         <button class="btn btn-primary btn-round mr-auto" data-toggle="modal"
                             data-target="#TambahDosen">
-                            <i class="fa fa-plus"></i> Add Dosen
+                            <i class="fa fa-plus"></i> Add Matkul
                         </button>
                         {{-- <a href="{{ route('produk.exportPDF') }}"
                             class="btn btn-outline-warning btn-round ms-auto">
@@ -32,13 +32,13 @@
                     </div>
 
                     <div class="card-body">
-                        <!-- Modal Tambah Dosen -->
+                        <!-- Modal Tambah Mhs -->
                         <div class="modal fade" id="TambahDosen" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header border-0">
                                         <h5 class="modal-title">
-                                            <span class="fw-mediumbold"> Dosen''s</span>
+                                            <span class="fw-mediumbold"> Matkul''s</span>
                                             <span class="fw-light"> Datas </span>
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -46,7 +46,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        @include('dosen.create')
+                                        @include('matkul.create')
                                     </div>
                                 </div>
                             </div>
@@ -56,28 +56,26 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Dosen</th>
-                                    <th>NIDN</th>
-                                    <th>Email</th>
-                                    <th>Prodi</th>
+                                    <th>Kode Matkul</th>
+                                    <th>Nama Matkul</th>
+                                    <th>SKS</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datas['data'] as $dosen)
+                                @foreach ($datas['data'] as $matkul)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $dosen['nama'] }}</td>
-                                    <td>{{ $dosen['nidn'] }}</td>
-                                    <td>{{ $dosen['email'] }}</td>
-                                    <td>{{ $dosen['prodi'] }}</td>
+                                    <td>{{ $matkul['kode_matkul'] }}</td>
+                                    <td>{{ $matkul['nama_matkul'] }}</td>
+                                    <td>{{ $matkul['sks'] }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center mr-2">
                                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                                data-target="#EditDosen{{ $dosen['nidn'] }}">
+                                                data-target="#EditDosen{{ $matkul['kode_matkul'] }}">
                                                 <i class="fa fa-edit"></i> Edit
                                             </button>
-                                            <form action="{{ route('dosen.destroy', $dosen['nidn']) }}" method="POST"
+                                            <form action="{{ route('matkul.destroy', $matkul['kode_matkul']) }}" method="POST"
                                                 class="ml-2">
                                                 @csrf
                                                 @method('DELETE')
@@ -90,13 +88,13 @@
                                 </tr>
 
                                 <!-- Modal Edit -->
-                                <div class="modal fade" id="EditDosen{{$dosen['nidn']}}" tabindex="-1"
+                                <div class="modal fade" id="EditMatkul{{$matkul['kode_matkul']}}" tabindex="-1"
                                     aria-labelledby="editModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">
-                                                    Edit Data Dosen
+                                                    Edit Data Matkul
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
@@ -104,7 +102,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                @include('dosen.edit')
+                                                @include('matkul.edit')
                                             </div>
                                         </div>
                                     </div>

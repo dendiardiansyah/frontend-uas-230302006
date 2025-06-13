@@ -12,16 +12,13 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $responseMahasiswa = Http::get(config('services.api.base_url') . '/mahasiswa', [
+        $response = Http::get(config('services.api.base_url') . '/mahasiswa', [
             'sort_by' => 'id',
             'order' => 'asc'
         ]);
-        $responseDosen = Http::get(config('services.api.base_url') . '/dosen');
-        if ($responseMahasiswa->successful() && $responseDosen->successful()) {
-            $datas = collect($responseMahasiswa->json())->sortByDesc('id');
-            $dosens = $responseDosen->json();
-
-            return view('Mahasiswa.index', compact('datas','dosens'));
+        if ($response->successful()) {
+            $datas = collect($response->json())->sortByDesc('id');
+            return view('mahasiswa.index', compact('datas'));
         }
         return response()->json(['error' => 'Gagal Mengambil Data dari API'], 500);
     }
@@ -40,23 +37,21 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nim' => 'required',
-            'email' => 'required',
-            'angkatan' => 'required|Max:9',
-            'prodi' => 'required',
-            'dosen_wali_id' => 'required'
+            'npm' => 'required',
+            'nama_mahasiswa' => 'required',
+	        'email' => 'required',
+            'id_user' => 'required',
+            'kode_kelas' => 'required',
         ]);
         $response = Http::post(config('services.api.base_url') . '/mahasiswa', [
-            'nama' => $request->nama,
-            'nim' => $request->nim,
+            'npm' => $request->npm,
+            'nama_mahasiswa' => $request->nama_mahasiswa,
             'email' => $request->email,
-            'angkatan' => $request->angkatan,
-            'prodi' => $request->prodi,
-            'dosen_wali_id' => $request->dosen_wali_id
+            'id_user' => $request->id_user,
+            'kode_kelas' => $request->kode_kelas
         ]);
         if ($response->successful()) {
-            return redirect()->route('mahasiswa.index')->with('success', 'Data berhasil DItambahkan!');
+            return redirect()->route('mahasiswa.index')->with('success', 'Data berhasil Ditambahkan!');
         }
         return back()->with('error', 'Gagal Menambahkan Data');
     }
@@ -91,20 +86,17 @@ class MahasiswaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nim' => 'required',
-            'email' => 'required',
-            'angkatan' => 'required|Max:9',
-            'prodi' => 'required',
-            'dosen_wali_id' => 'required'
+            'npm' => 'required',
+            'nama_mahasiswa' => 'required',
+	        'email' => 'required',
+            'id_user' => 'required',
+            'kode_kelas' => 'required',
         ]);
-        $response = Http::put(config('services.api.base_url') . '/mahasiswa/' . $id, [
-            'nama' => $request->nama,
-            'nim' => $request->nim,
+        $response = Http::put(config('services.api.base_url') . '/mahasiswa', [
+            'npm' => $request->npm,
+            'nama_mahasiswa' => $request->nama_mahasiswa,
             'email' => $request->email,
-            'angkatan' => $request->angkatan,
-            'prodi' => $request->prodi,
-            'dosen_wali_id' => $request->dosen_wali_id
+            'id_user' => $request->id_user,
         ]);
         if ($response->successful()) {
             return redirect()->route('mahasiswa.index')->with('success', 'Data berhasil DI update!');

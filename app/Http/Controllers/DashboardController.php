@@ -8,13 +8,20 @@ use Illuminate\Support\Facades\Http;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $mahasiswa = Http::get(config('services.api.base_url') . '/mahasiswa');
-        $dosen = Http::get(config('services.api.base_url') . '/dosen');
-        // dd($prodi->json()['data_prodi']);
-        $mahasiswa = count($mahasiswa->json()['data']);
-        $dosen = count($dosen->json()['data']);
-
-        return view('index', compact('mahasiswa', 'dosen'));
+{
+    $mahasiswaRes = Http::get(config('services.api.base_url') . '/mahasiswa');
+    $matkulRes = Http::get(config('services.api.base_url') . '/matkul');
+    if (!$mahasiswaRes->ok() || !$matkulRes->ok()) {
+        return response()->json(['error' => 'Gagal mengambil data dari API'], 500);
     }
+
+    $mahasiswaData = $mahasiswaRes->json();
+    $matkulData = $matkulRes->json();
+
+    $mahasiswa = isset($mahasiswaData['data']) ? count($mahasiswaData['data']) : 0;
+    $matkul = isset($matkulData['data']) ? count($matkulData['data']) : 0;
+
+    return view('index', compact('mahasiswa', 'matkul'));
+}
+
 }
