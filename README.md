@@ -15,7 +15,7 @@ Proyek ini adalah frontend berbasis Laravel yang menggunakan AdminLTE dan mengon
 Install Laravel versi 10
 
 ```bash
-composer create-project laravel/laravel Eval-Laravel10 "10.*"
+composer create-project laravel/laravel nama-project "10.*"
 ```
 
 ### 2. Install Controller
@@ -58,18 +58,18 @@ Edit file `config.services.php` dan tambahkan code :
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\MahasiswaController;
 
 Route::get('/', function () {
     return view('index');
 });
 
-Route::get('dosen', [DosenController::class, 'index'])->name('dosen.index');
-Route::post('dosen', [DosenController::class, 'store']);
-Route::get('dosen/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
-Route::put('dosen/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
-Route::delete('dosen/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
+Route::get('matkul', [matkulController::class, 'index'])->name('matkul.index');
+Route::post('matkul', [matkulController::class, 'store']);
+Route::get('matkul/edit/{id}', [matkulController::class, 'edit'])->name('matkul.edit');
+Route::put('matkul/update/{id}', [matkulController::class, 'update'])->name('matkul.update');
+Route::delete('matkul/delete/{id}', [matkulController::class, 'destroy'])->name('matkul.destroy');
 
 
 Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
@@ -81,7 +81,7 @@ Route::delete('mahasiswa/delete/{id}', [MahasiswaController::class, 'destroy'])-
 ```
 
 ### 6. Buat tampilan
-* buat tampilan di mahasiswa `index` dan dosen `index` di `resources.views.<Folder Mahasiswa atau Dosen>`
+* buat tampilan di mahasiswa `index` dan matkul `index` di `resources.views.<Folder Mahasiswa atau Dosen>`
 
 ### 7. Jalankan Server Development
 
@@ -94,12 +94,12 @@ Server akan berjalan di `http://localhost:8000`
 
 Gunakan Postman untuk mengetes endpoint berikut:
 
-#### Dosen
+#### Matkul
 
-* `GET` → `http://localhost:8080/dosen`
-* `POST` → `http://localhost:8080/dosen`
-* `PUT` → `http://localhost:8080/dosen/{id}`
-* `DELETE` → `http://localhost:8080/dosen/{id}`
+* `GET` → `http://localhost:8080/matkul`
+* `POST` → `http://localhost:8080/matkul`
+* `PUT` → `http://localhost:8080/matkul/{id}`
+* `DELETE` → `http://localhost:8080/matkul/{id}`
 
 #### Mahasiswa
 
